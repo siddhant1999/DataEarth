@@ -260,3 +260,9 @@ if (is_null($species_id)):
 
 
 </html>
+<style>
+#home-nav #nav-logo img {
+    height: 150%;
+    width: 150%;
+}
+</style>
