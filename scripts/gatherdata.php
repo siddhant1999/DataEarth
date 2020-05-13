@@ -41,6 +41,7 @@ $result = $conn->query($src1);
         $row1["Species_Weight_Units"] = $row['Species_Weight_Units'];
         $row1["Species_Image_URL"] = $row['Species_Image_URL'];
         $row1["Subgroup_ID"] = $row['Subgroup_ID'];
+        $row1["Category_ID"] = $row['Category_ID'];
         $row1["Date_Added"] = $row['Date_Added'];
         $row1["Date_Updated"] = $row['Date_Updated'];
         $row1["Date_Last_Queried"] = $row['Date_Last_Queried'];

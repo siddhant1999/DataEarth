@@ -156,6 +156,9 @@ function infopage(theid){
   var spec_high =sessionStorage.getItem('spec_high');
   var spec_units =sessionStorage.getItem('spec_units');
   var spec_subgroup =sessionStorage.getItem('spec_subgroup');
+  var spec_category = sessionStorage.getItem('spec_category');
+
+
   var ssss = "SELECT * FROM Subgroups WHERE Subgroup_ID='"+spec_subgroup+"';";
   //infoInit(spec_name, spec_sci_name, spec_desc, spec_low, spec_high, spec_units, spec_img, spec_subgroup);
  
@@ -182,8 +185,58 @@ function infopage(theid){
   infoInit(spec_name, spec_sci_name, spec_desc, spec_low, spec_high, spec_units, spec_img, spec_subgroup);
 
   //speciesInit(spec_sci_name, desc, low_weight, high_weight, unit_weight, img_url, subgroup_id)
+  //console.log("Whether or not null", spec_category)
+
+  //console.log("boolean", spec_category, spec_category == 'null')
+  
+  if(spec_category != 'null'){//this is wrong
+    //query the species_categories table
+    console.log("You should be fucking here")
+    var srccat = "SELECT * FROM Species_Categories WHERE Category_ID='"+ spec_category +"';";
+    console.log("begin")
+    $.ajax({
+      type: "POST",
+      url: "scripts/infodata.php",
+      async: false,
+      data: {
+         sqlquery: srccat,
+         theTable: "category"
+      },
+      success: function(data) {
+        console.log("over here", data, data.connections.length)
+        //to fix this you need to itterate over each species in data.connections and determine the respective species info and subgroups
+        for (var p = 0; p < rely_nodes.length; p++) {
+        var curspecid = rely_nodes[p];
+        //alert(curspecid);
+        var subgroup_id = rely_subgroup_lookup[rely_nodes[p]];
 
 
+
+        var spec_query = "SELECT * FROM Subgroups WHERE Subgroup_ID='"+subgroup_id+"';";
+        $.ajax({
+          type: "POST",
+          url: "scripts/infodata.php",
+          async: false,
+          data: {
+            sqlquery: spec_query,
+            theTable: "subgroup"
+          },
+          success: function(sub_res){
+            console.log("here is the sub_res result data:");
+            console.log(sub_res);
+            if (sub_res.connections.length>0) {
+              infoAppend("rely", sub_res.connections[0].Subgroup_Name, species_lookup[curspecid], con_lookup[curspecid], species_img_lookup[curspecid],sub_res.connections[0].Subgroup_Image_URL, curspecid)
+              //$('#connect-rely-div').append(add_tag_new);
+            }
+
+          }
+        });
+      }
+      }
+    });
+  }
+
+  else{
 
 
   //$('#con_1').append("<h3><u>Rely</u></h3>");
@@ -448,6 +501,7 @@ function infopage(theid){
       console.log("done respond");
     }
   });
+ }
   //map implementation
   //map_loc(theid);
 }

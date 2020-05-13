@@ -179,7 +179,7 @@ $( document ).ready(function() {
             },
             success: function(reso) {
                 //console.log("right: ")
-                //console.log(reso);
+                
                 //(leftOrRight, img1, species1, link1, img2, species2, link2, img3, species3, link3)
                 homeInit("right", reso.connections[0].Species_Image_URL, reso.connections[0].Species_Name, reso.connections[0].Species_ID, reso.connections[1].Species_Image_URL, reso.connections[1].Species_Name, reso.connections[1].Species_ID,reso.connections[2].Species_Image_URL, reso.connections[2].Species_Name, reso.connections[2].Species_ID);
                 //console.log("right: done ");

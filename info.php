@@ -153,6 +153,8 @@
 
 </html>
 <script type="text/javascript">
+    //actually use a thing in the url so you know that the category was clicked on as not the middle bubble
+    //if it's a category just dont use infopage
     infopage(spec_id);
     queryLoc(spec_id);
 </script>

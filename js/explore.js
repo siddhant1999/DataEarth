@@ -15,6 +15,7 @@ var respond_nodes=[];
 var respond_subgroup_lookup=[];
 
 var is_address = false;
+var isCat=[];
 querying();
 
 var address;
@@ -31,13 +32,14 @@ function querySpec(sid){
       temp_name = result.data.species[0].Species_Name;
       temp_sci_name= result.data.species[0].Species_Scientific_Name;
       temp_img = result.data.species[0].Species_Image_URL;
+      temp_cat = result.data.species[0].Category_ID;
 
       if (rely_nodes.includes(sid)) {
         rely_subgroup_lookup[sid]= result.data.species[0].Subgroup_ID;
         cy.$('#e_'+sid).css({
           'target-arrow-shape': 'triangle',
           'line-color': '#7ec0ee',
-          'target-arrow-color': '#7ec0ee'
+          'target-arrow-color': '#7ec0ee'//blue
         })
       }
       if (respond_nodes.includes(sid)) {
@@ -45,7 +47,18 @@ function querySpec(sid){
         cy.$('#e_'+sid).css({
           'target-arrow-shape': 'triangle',
           'line-color': '#ffff7f',
-          'target-arrow-color': '#ffff7f'
+          'target-arrow-color': '#ffff7f'//yellow
+        })
+      }
+      console.log("looking", temp_name, temp_cat)
+
+      if (temp_cat != null && temp_cat != "null") {
+        console.log("found null", sid)
+        isCat.push(sid)
+        console.log(isCat)
+        cy.$('#e_'+sid).css({
+          'line-color': 'red',
+          'target-arrow-color': 'red'//green
         })
       }
 
@@ -85,7 +98,7 @@ function querySpec(sid){
       else {
         $("#spec_name_here").text(temp_name);
         var locs = (queryLoc(sid));
-        var pp = temp_name + '\n' + locs;
+        var pp = temp_name// + '\n' + locs;
         cy.$(fer).css({
           /*'height': cy.height()/4,
           'width': cy.height()/4,*/
@@ -134,6 +147,7 @@ function querying(){
           spec_high = result.data.species[0].Species_High_Weight;
           spec_units = result.data.species[0].Species_Weight_Units;
           spec_subgroup = result.data.species[0].Subgroup_ID;
+          spec_category = result.data.species[0].Category_ID;
 
           var str = '{ "data": {"id": "'+ spec_id +'"} }';
           //str.toString();
@@ -325,12 +339,13 @@ cy.on('tap', 'node', function(evt){
     sessionStorage.setItem('spec_high', spec_high);
     sessionStorage.setItem('spec_units', spec_units);
     sessionStorage.setItem('spec_subgroup', spec_subgroup);
+    sessionStorage.setItem('spec_category', spec_category);
 
     //console.log(species_lookup);
     //species_img_lookup = JSON.parse(species_img_lookup);
     //console.log(species_img_lookup);
     //console.log("rely_nodes: " + rely_nodes);
-  window.location.assign("http://dataearth.com/info.php?id=" + String(node.id()));
+    window.location.assign("http://dataearth.com/info.php?id=" + String(node.id()));
     //onresize();
     //infopage(spec_id);
     //queryLoc(spec_id);
@@ -338,6 +353,10 @@ cy.on('tap', 'node', function(evt){
     initMap();
     loc_init();
 
+  }
+  else if (isCat.indexOf(node.id()) != -1) {
+    window.location.assign("http://dataearth.com/demo.php?id=" + String(node.id()));
+    window.open("http://dataearth.com/info.php?id=" + String(node.id()));
   }
   else {
     window.location.assign("http://dataearth.com/demo.php?id=" + String(node.id()));

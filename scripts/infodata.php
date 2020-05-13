@@ -80,6 +80,11 @@ $results = $conn->query($q);
             $row2["Location_Address"] = $rows['Location_Address'];
             $row2["Location_Image_URL"] = $rows['Location_Image_URL'];
         }
+        else if($tab == "category"){
+            $row2["Species_Category_ID"] = $rows['Species_Category_ID'];
+            $row2["Category_ID"] = $rows['Category_ID'];
+            $row2["Species_ID"] = $rows['Species_ID'];
+        }
         else if($tab == "recent"){
             $row2["Species_ID"] = $rows['Species_ID'];
             $row2["Species_Name"] = $rows['Species_Name'];
@@ -92,6 +97,7 @@ $results = $conn->query($q);
             $row2["Species_Weight_Units"] = $rows['Species_Weight_Units'];
             $row2["Species_Image_URL"] = $rows['Species_Image_URL'];
             $row2["Subgroup_ID"] = $rows['Subgroup_ID'];
+            $row2["Category_ID"] = $rows['Category_ID'];
             $row2["Date_Added"] = $rows['Date_Added'];
             $row2["Date_Updated"] = $rows['Date_Updated'];
             $row2["Date_Last_Queried"] = $rows['Date_Last_Queried'];
