@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="-400 -400 800 800" width="800" height="800">
+<title id="title">Electron shells for element: Z=002 He (Helium): 2</title>
+<desc id="element_description">002 He (Helium) Legend_color:#c0ffff</desc>
+<desc id="element_electron_configuration">2</desc>
+
+<defs>
+<circle id="electron" fill="#77868b" stroke="none" r="30"/>
+</defs>
+
+<circle fill="#c0ffff" r="200" stroke="#343434" stroke-width="10"/>
+<g style="font-weight:bold;" font="DejaVu Sans">
+<text x="0" y="50" text-anchor="middle" style="font-size:150">He</text>
+</g>
+
+<g stroke="#77868b" stroke-width="8" fill="none"><circle id="shell_1" r="300"/>
+<use id="electron_0_shell_1" xlink:href="#electron" y="-300"/>
+<use id="electron_1_shell_1" xlink:href="#electron_0_shell_1" transform="rotate(180)"/>
+</g>
+</svg>
